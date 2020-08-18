@@ -1,0 +1,150 @@
+.popup {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba($color-black, 0.8);
+    z-index: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+    // Hacer que se cierre el popup clickeando afuera de la ventana de contenido
+    //   &:target &__bg-close {
+    //     opacity: 0;
+    //     visibility: hidden;
+    //   }
+    &__content {
+        @include center-hor-ver;
+        width: 75%;
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color-black, 0.6);
+        border-radius: $default-border-radius;
+        display: table;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+        transition: all 0.4s 0.2s;
+        overflow: hidden;
+        @include respond(tab-port) {
+            display: block;
+            position: absolute;
+            text-align: center;
+            width: 65%;
+            height: 90%;
+            overflow: scroll;
+        }
+        @include respond(phone) {
+            width: 80%;
+        }
+    }
+    &__left {
+        display: table-cell;
+        width: 33.33333%;
+        @include respond(normal-desktop) {
+            width: 40%;
+        }
+        @include respond(tab-port) {
+            display: block;
+            width: auto;
+        }
+    }
+    &__img {
+        display: block;
+        width: 100%;
+        backface-visibility: hidden;
+        @include respond(tab-port) {
+            display: block;
+            width: 100%;
+        }
+    }
+    &__right {
+        display: table-cell;
+        width: 66.666667;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+        .btn {
+            left: 50%;
+            transform: translate(-50%);
+            margin-top: 2rem;
+            @include respond(tab-port) {
+                left: 0;
+                transform: translate(0);
+            }
+        }
+        @include respond(normal-desktop) {
+            width: 60%;
+            padding: 3rem 3rem;
+        }
+        @include respond(tab-port) {
+            width: 90%;
+        }
+        & h2 {
+            @include respond(normal-desktop) {
+                font-size: 3rem;
+            }
+        }
+    }
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+        column-count: 2;
+        column-gap: 4rem; //default is 1em, in this case it would be 14px
+        column-rule: solid 1px $color-grey-light-2;
+        hyphens: auto;
+        transform: translateY(0.6rem);
+        @include respond(normal-desktop) {
+            column-gap: 2rem;
+        }
+        @include respond(tab-land) {
+            column-count: 1;
+            column-gap: 0;
+            column-rule: none;
+        }
+        @include respond(tab-port) {
+            font-size: 1.6rem;
+        }
+    }
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+    &:target &__content {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    &__close {
+        &:link,
+        &:visited {
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            text-decoration: none;
+            color: $color-grey-dark;
+            font-size: 3.5rem;
+            transition: color 0.2s;
+            line-height: 0.2;
+            @include respond(tab-port) {
+                display: none;
+            }
+        }
+        &:hover {
+            color: $color-primary;
+        }
+        &--phone {
+            text-decoration: none;
+            position: absolute;
+            font-size: 3.5rem;
+            top: 5%;
+            right: 19%;
+            z-index: 999;
+            color: $color-grey-dark-3;
+            display: none;
+            @include respond(tab-port) {
+                display: inline-block;
+            }
+            @include respond(phone) {
+                right: 12%;
+            }
+        }
+    }
+}
